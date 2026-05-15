@@ -12,7 +12,7 @@ export default function Home() {
   const fetchModels = async () => {
     try {
       const res = await axios.get(
-        "https://mern-backend-v241.onrender.com/api/models"
+        "https://mern-backend-v24l.onrender.com/api/models"
       );
 
       setModels(res.data);

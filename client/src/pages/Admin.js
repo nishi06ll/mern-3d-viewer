@@ -27,7 +27,7 @@ export default function Admin() {
     try {
 
       await axios.post(
-        "https://mern-backend-v241.onrender.com/api/upload",
+        "https://mern-backend-v24l.onrender.com/api/upload",
         formData
       );
 
