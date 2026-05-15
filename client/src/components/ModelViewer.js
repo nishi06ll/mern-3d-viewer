@@ -25,7 +25,12 @@ export default function ModelViewer({ modelUrl }) {
 
         <Environment preset="sunset" />
 
-        <Bounds fit clip observe margin={1.2}><Suspense fallback={null}>
+        <Bounds fit clip observe margin={1.2}><Suspense fallback={
+  <mesh>
+    <boxGeometry />
+    <meshStandardMaterial color="gray" />
+  </mesh>
+}>
           
   <Model url={modelUrl} />
 </Suspense>
