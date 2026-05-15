@@ -80,8 +80,12 @@ export default function Home() {
     </h2>
 
     <ModelViewer
-      modelUrl={`${model.fileUrl}`}
-    />
+  modelUrl={
+    model.fileUrl.startsWith("http")
+      ? model.fileUrl
+      : `https://mern-backend-v24l.onrender.com/uploads/${model.fileUrl}`
+  }
+/>
   </div>
 ))}
       </div>
