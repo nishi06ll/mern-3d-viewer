@@ -1,17 +1,21 @@
 const express = require("express");
 const router = express.Router();
 const multer = require("multer");
-const path = require("path");
-
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const cloudinary = require("cloudinary").v2;
 const Model = require("../models/Model");
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "uploads/");
-  },
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname));
+const storage = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: "3d-models",
+    resource_type: "raw",
   },
 });
 
@@ -21,31 +25,21 @@ router.post("/upload", upload.single("model"), async (req, res) => {
   try {
     const newModel = new Model({
       name: req.body.name,
-      fileUrl: req.file.filename,
+      fileUrl: req.file.path,
     });
-
     await newModel.save();
-
-    res.status(201).json({
-      message: "Model uploaded successfully",
-      data: newModel,
-    });
+    res.status(201).json({ message: "Model uploaded successfully", data: newModel });
   } catch (error) {
-    res.status(500).json({
-      message: error.message,
-    });
+    res.status(500).json({ message: error.message });
   }
 });
 
 router.get("/models", async (req, res) => {
   try {
     const models = await Model.find();
-
     res.status(200).json(models);
   } catch (error) {
-    res.status(500).json({
-      message: error.message,
-    });
+    res.status(500).json({ message: error.message });
   }
 });
 
