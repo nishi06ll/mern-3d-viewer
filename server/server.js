@@ -6,9 +6,7 @@ require("dotenv").config();
 const app = express();
 const modelRoutes = require("./routes/modelRoutes");
 
-app.use(cors({
-  origin: ["https://mern-deploy.netlify.app", "http://localhost:3000"]
-}));
+app.use(cors());
 
 app.use(express.json());
 
