@@ -11,11 +11,12 @@ app.use(cors({
 }));
 
 app.use(express.json());
+
 app.get("/", (req, res) => {
   res.send("Server Running");
 });
+
 app.use("/api", modelRoutes);
-app.use("/uploads", express.static("uploads"));
 
 mongoose
   .connect(process.env.MONGO_URI)
