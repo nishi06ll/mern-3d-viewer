@@ -12,7 +12,7 @@ export default function Home() {
   const fetchModels = async () => {
     try {
       const res = await axios.get(
-        "https://mern-3d-viewer-h1vg.onrender.com/api/models"
+        "https://mern-backend-v241.onrender.com/api/models"
       );
 
       setModels(res.data);
@@ -80,7 +80,7 @@ export default function Home() {
     </h2>
 
     <ModelViewer
-      modelUrl={`http://localhost:5000/uploads/${model.fileUrl}`}
+      modelUrl={`${model.fileUrl}`}
     />
   </div>
 ))}
